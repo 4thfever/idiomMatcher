@@ -20,9 +20,6 @@ class Match:
 
 class IdiomMatcher:
     def __init__(self, file_path='idiom.json'):
-        """
-        初始化 IdiomMatcher，并从 JSON 文件中加载成语。
-        """
         self.idioms = self.load_idioms(file_path)
 
     def load_idioms(self, file_path):
@@ -33,8 +30,24 @@ class IdiomMatcher:
             idioms = json.load(file)
         
         for idiom in idioms:
-            idiom["pinyin"] = split_pinyin(idiom["pinyin"])
+            pinyin = split_pinyin(idiom["pinyin"])
+            pinyin = self.add_comma_to_pinyin(idiom["word"], pinyin)
+            idiom["pinyin"] = pinyin
         return idioms
+    
+    @staticmethod
+    def add_comma_to_pinyin(word, pinyin):
+        """
+        如果成语中有逗号，将其添加到拼音表示中。
+        """
+        output = []
+        for i in range(len(word)):
+            if word[i] == "，":
+                output.append("，")
+            else:
+                output.append(pinyin.pop(0))
+
+        return output
 
 
     def find_pinyin_matches(self, idiom_pinyin, human_pinyin, key_word_pinyin):

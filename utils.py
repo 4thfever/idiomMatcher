@@ -24,11 +24,10 @@ def remove_accents(pinyin_with_accents):
 
 def split_pinyin(s):
     """
-    拆分拼音字符串。保留其中的逗号。
+    拆分拼音字符串。空格或者中英文逗号分隔。
     """
-    pattern = r'(\s+|,)'  
-    parts = re.split(pattern, s)
-    parts = [part for part in parts if part and part.strip()]
+    parts = re.split(r"[,，\s]", s)
+    parts = [part.strip() for part in parts if part.strip()]
     return parts
 
 def replace_char_in_string(s, index, new_char):
