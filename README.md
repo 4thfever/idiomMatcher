@@ -4,9 +4,7 @@
 代码TODO：
 - readme里面的使用方法说明，配图，介绍
 - 引入更多成语?
-- 支持一两个国产api，比如deepseek
 - logger
-- 拆分utils为两三个文件
 
 视频TODO：
 - 标题：开发谐音梗AI，并开源他
