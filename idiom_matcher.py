@@ -13,7 +13,6 @@ from utils import (
 @dataclass
 class Match:
     idiom: str
-    pinyin: str
     homophone: str
     human_cn: str
     key_word_cn: str
@@ -72,10 +71,10 @@ class IdiomMatcher:
         """
         生成一个新的成语字符串，将字符替换为对应的人名和关键词字符。
         """
-        idiom_homophone = deepcopy(idiom["word"])
-        idiom_homophone = replace_char_in_string(idiom_homophone, human_idx[1], human_cn[human_idx[0]])
-        idiom_homophone = replace_char_in_string(idiom_homophone, keyword_idx[1], key_word_cn[keyword_idx[0]])
-        return idiom_homophone
+        homophone = deepcopy(idiom["word"])
+        homophone = replace_char_in_string(homophone, human_idx[1], human_cn[human_idx[0]])
+        homophone = replace_char_in_string(homophone, keyword_idx[1], key_word_cn[keyword_idx[0]])
+        return homophone
 
     def match_idioms(self, human_cn, key_word_cn, strict=True):
         """
@@ -96,13 +95,12 @@ class IdiomMatcher:
             human_match, keyword_match = self.find_pinyin_matches(idiom_pinyin, human_pinyin, key_word_pinyin)
 
             if human_match and keyword_match:
-                idiom_homophone = self.generate_idiom_with_replacements(
+                homophone = self.generate_idiom_with_replacements(
                     idiom, human_cn, key_word_cn, human_match, keyword_match
                 )
                 match = Match(
                     idiom=idiom["word"],
-                    pinyin=idiom["pinyin"],
-                    homophone=idiom_homophone,
+                    homophone=homophone,
                     human_cn=human_cn,
                     key_word_cn=key_word_cn
                 )

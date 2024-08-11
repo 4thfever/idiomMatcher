@@ -9,9 +9,6 @@
 - 引入更多成语?
 - 支持一两个国产api，比如deepseek
 - requirements
-- 符号的替换还是有问题: unittest测一下
-- 去掉quote
-- dataclass: Match
 - logger
 
 视频TODO：
