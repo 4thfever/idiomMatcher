@@ -3,7 +3,6 @@
 
 代码TODO：
 - readme里面的使用方法说明
-- few shot的更多例子，更详细解释，更细致的prompt
 - 重构代码，更优雅：解耦一下
 - 引入更多成语?
 - 支持一两个国产api，比如deepseek

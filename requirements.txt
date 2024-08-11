@@ -1,0 +1,4 @@
+gradio
+litellm
+pypinyin
+Unidecode
