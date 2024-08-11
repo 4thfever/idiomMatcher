@@ -5,12 +5,12 @@
 - unittest
 - readme里面的使用方法说明
 - few shot的更多例子，更详细解释，更细致的prompt
-- 重构代码，更优雅
+- 重构代码，更优雅：解耦一下
 - 引入更多成语?
 - 支持一两个国产api，比如deepseek
-- 一次性列出全部的检索结果
 - requirements
-- 符号的替换还是有问题
+- 符号的替换还是有问题: unittest测一下
+- 去掉quote
 
 视频TODO：
 - 标题：开发谐音梗AI，并开源他

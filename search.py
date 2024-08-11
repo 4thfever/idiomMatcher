@@ -12,7 +12,6 @@ def search(humans, key_words, is_strict):
 
     if len(ress) ==  0:
         return "无匹配结果"
-    
     output = get_output(ress)
     res = random.choice(ress)
     idiom, _, idiom_xieyin, human, key_word = res

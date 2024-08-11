@@ -65,13 +65,13 @@ def get_output(ress):
 
 def _get_output(res):
     idiom, _, idiom_xieyin, _, _ = res
-    return f"原始成语：'{idiom}'\n谐音成语：'{idiom_xieyin}'"
+    return f"原始成语：{idiom}\n谐音成语：{idiom_xieyin}"
 
 def get_explain(human, key_word, idiom, idiom_xieyin, understanding):
     return f"""
-    原始成语：'{idiom}'
-    谐音成语：'{idiom_xieyin}'
-    主人公：'{human}'
-    关键字：'{key_word}'
-    理解：'{understanding}'
+    原始成语：{idiom}
+    谐音成语：{idiom_xieyin}
+    主人公：{human}
+    关键字：{key_word}
+    理解：{understanding}
     """
