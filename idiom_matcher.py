@@ -2,7 +2,7 @@ import json
 from copy import deepcopy
 from dataclasses import dataclass
 
-from utils import (
+from utils.pinyin import (
     chinese_to_pinyin,
     remove_accents,
     replace_char_in_string,
@@ -66,7 +66,7 @@ class IdiomMatcher:
                     return human_match_idx, key_word_match_idx
         return None, None
 
-    def generate_idiom_with_replacements(self, idiom, human_cn, key_word_cn, human_idx, keyword_idx):
+    def gen_homophone(self, idiom, human_cn, key_word_cn, human_idx, keyword_idx):
         """
         生成一个新的成语字符串，将字符替换为对应的人名和关键词字符。
         """
@@ -94,7 +94,7 @@ class IdiomMatcher:
             human_match, keyword_match = self.find_pinyin_matches(idiom_pinyin, human_pinyin, key_word_pinyin)
 
             if human_match and keyword_match:
-                homophone = self.generate_idiom_with_replacements(
+                homophone = self.gen_homophone(
                     idiom, human_cn, key_word_cn, human_match, keyword_match
                 )
                 match = Match(

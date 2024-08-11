@@ -1,9 +1,12 @@
 import random
 
 from idiom_matcher import IdiomMatcher
-from utils import get_prompt, get_output, get_explain
-from llm import call_api
-from local_llm import call_api
+from utils.parser import get_output, get_explain, get_understanding
+from utils.llm import get_prompt
+try:
+    from local_llm import call_api
+except:
+    from llm import call_api
 
 idiom_matcher = IdiomMatcher()
 
@@ -15,7 +18,8 @@ def search(humans, key_words, is_strict):
     output = get_output(matches)
     match = random.choice(matches)
     prompt = get_prompt(match)
-    understanding = call_api(prompt)
+    res = call_api(prompt)
+    understanding = get_understanding(res)
     explain = get_explain(match, understanding)
     return output, explain
 
