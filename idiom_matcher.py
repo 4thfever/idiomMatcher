@@ -1,4 +1,3 @@
-import re
 import json
 from copy import deepcopy
 from dataclasses import dataclass
@@ -76,7 +75,7 @@ class IdiomMatcher:
         homophone = replace_char_in_string(homophone, keyword_idx[1], key_word_cn[keyword_idx[0]])
         return homophone
 
-    def match_idioms(self, human_cn, key_word_cn, strict=True):
+    def match(self, human_cn, key_word_cn, strict=True):
         """
         根据提供的中文字符及其拼音表示匹配成语。
         """
@@ -105,11 +104,4 @@ class IdiomMatcher:
                     key_word_cn=key_word_cn
                 )
                 matching_idioms.append(match)
-        return matching_idioms
-
-    def match(self, human_cn, key_word_cn, strict=True):
-        """
-        为每对人名和关键词中文短语匹配成语。
-        """
-        matching_idioms = self.match_idioms(human_cn, key_word_cn, strict)
         return matching_idioms

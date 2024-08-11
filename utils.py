@@ -70,13 +70,6 @@ def _get_output(match):
     return f"原始成语：{idiom}\n谐音成语：{homophone}"
 
 def get_explain(match, understanding):
-    # return f"""
-    # 原始成语：{idiom}
-    # 谐音成语：{idiom_xieyin}
-    # 主人公：{human}
-    # 关键字：{key_word}
-    # 理解：{understanding}
-    # """
     return f"""
     原始成语：{match.idiom}
     谐音成语：{match.homophone}
