@@ -11,7 +11,7 @@ def search(humans, key_words, is_strict):
     matches = idiom_matcher.match(humans, key_words, is_strict)
 
     if len(matches) ==  0:
-        return "无匹配结果"
+        return "无匹配结果", "无匹配结果"
     output = get_output(matches)
     match = random.choice(matches)
     prompt = get_prompt(match)
