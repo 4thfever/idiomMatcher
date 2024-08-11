@@ -11,6 +11,8 @@
 - requirements
 - 符号的替换还是有问题: unittest测一下
 - 去掉quote
+- dataclass: Match
+- logger
 
 视频TODO：
 - 标题：开发谐音梗AI，并开源他

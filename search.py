@@ -8,16 +8,15 @@ from local_llm import call_api
 idiom_matcher = IdiomMatcher()
 
 def search(humans, key_words, is_strict):
-    ress = idiom_matcher.match(humans, key_words, is_strict)
+    matches = idiom_matcher.match(humans, key_words, is_strict)
 
-    if len(ress) ==  0:
+    if len(matches) ==  0:
         return "无匹配结果"
-    output = get_output(ress)
-    res = random.choice(ress)
-    idiom, _, idiom_xieyin, human, key_word = res
-    prompt = get_prompt(human, key_word, idiom, idiom_xieyin)
+    output = get_output(matches)
+    match = random.choice(matches)
+    prompt = get_prompt(match)
     understanding = call_api(prompt)
-    explain = get_explain(human, key_word, idiom, idiom_xieyin, understanding)
+    explain = get_explain(match, understanding)
     return output, explain
 
 if __name__ == "__main__":

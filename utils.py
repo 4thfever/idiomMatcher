@@ -22,20 +22,22 @@ def remove_accents(pinyin_with_accents):
         return [unidecode(pinyin) for pinyin in pinyin_with_accents]
     return unidecode(pinyin_with_accents)
 
+def split_pinyin(s):
+    """
+    拆分拼音字符串。保留其中的逗号。
+    """
+    pattern = r'(\s+|,)'  
+    parts = re.split(pattern, s)
+    parts = [part for part in parts if part and part.strip()]
+    return parts
+
 def replace_char_in_string(s, index, new_char):
     """
     替换字符串中指定索引位置的字符。
     """
     return s[:index] + new_char + s[index + 1:]
 
-
-def split_by_sep(string):
-    """
-    按照中文标点符号拆分字符串。
-    """
-    return re.split(r'，|、', string)
-
-def get_prompt(human, key_word, idiom, idiom_xieyin):
+def get_prompt(match):
     return f"""
     '''
     原始成语：当仁不让。
@@ -51,27 +53,35 @@ def get_prompt(human, key_word, idiom, idiom_xieyin):
     心桥非常懒惰，总是喜欢从别人那里轻易地获取好处。
     '''
     在上面，我告知你一些用了谐音技巧的中文成语，请帮助我巧妙地理解这些谐音成语。
-    原始成语：'{idiom}'
-    谐音成语：'{idiom_xieyin}'
-    主人公：'{human}'
-    关键字：'{key_word}'
+    原始成语：'{match.idiom}'
+    谐音成语：'{match.homophone}'
+    主人公：'{match.human_cn}'
+    关键字：'{match.key_word_cn}'
     理解：
     """
 
-def get_output(ress):
-    ress = [_get_output(res) for res in ress]
-    output = "\n\n".join(ress)
+def get_output(matches):
+    matches = [_get_output(match) for match in matches]
+    output = "\n\n".join(matches)
     return output
 
-def _get_output(res):
-    idiom, _, idiom_xieyin, _, _ = res
-    return f"原始成语：{idiom}\n谐音成语：{idiom_xieyin}"
+def _get_output(match):
+    idiom = match.idiom
+    homophone = match.homophone
+    return f"原始成语：{idiom}\n谐音成语：{homophone}"
 
-def get_explain(human, key_word, idiom, idiom_xieyin, understanding):
+def get_explain(match, understanding):
+    # return f"""
+    # 原始成语：{idiom}
+    # 谐音成语：{idiom_xieyin}
+    # 主人公：{human}
+    # 关键字：{key_word}
+    # 理解：{understanding}
+    # """
     return f"""
-    原始成语：{idiom}
-    谐音成语：{idiom_xieyin}
-    主人公：{human}
-    关键字：{key_word}
+    原始成语：{match.idiom}
+    谐音成语：{match.homophone}
+    主人公：{match.human_cn}
+    关键字：{match.key_word_cn}
     理解：{understanding}
     """

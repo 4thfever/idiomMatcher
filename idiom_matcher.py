@@ -1,15 +1,22 @@
 import re
 import json
-import itertools
 from copy import deepcopy
+from dataclasses import dataclass
 
 from utils import (
     chinese_to_pinyin,
     remove_accents,
     replace_char_in_string,
-    split_by_sep,
+    split_pinyin
 )
 
+@dataclass
+class Match:
+    idiom: str
+    pinyin: str
+    homophone: str
+    human_cn: str
+    key_word_cn: str
 
 class IdiomMatcher:
     def __init__(self, file_path='idiom.json'):
@@ -25,22 +32,10 @@ class IdiomMatcher:
         with open(file_path, 'r', encoding='utf-8') as file:
             idioms = json.load(file)
         
-        # 通过去掉音调来标准化拼音
         for idiom in idioms:
-            pinyin = idiom["pinyin"]
-            # pinyin = remove_accents(pinyin)
-            pinyin = self.split_pinyin(pinyin)
-            idiom["pinyin"] = pinyin
+            idiom["pinyin"] = split_pinyin(idiom["pinyin"])
         return idioms
-    
-    def split_pinyin(self, s):
-        """
-        拆分拼音字符串。保留其中的逗号。
-        """
-        pattern = r'(\s+|,)'  
-        parts = re.split(pattern, s)
-        parts = [part for part in parts if part and part.strip()]
-        return parts
+
 
     def find_pinyin_matches(self, idiom_pinyin, human_pinyin, key_word_pinyin):
         """
@@ -91,23 +86,19 @@ class IdiomMatcher:
                 idiom_homophone = self.generate_idiom_with_replacements(
                     idiom, human_cn, key_word_cn, human_match, keyword_match
                 )
-                matching_idioms.append([
-                    idiom["word"],
-                    idiom_pinyin,
-                    idiom_homophone,
-                    human_cn,
-                    key_word_cn,
-                ])
-                
+                match = Match(
+                    idiom=idiom["word"],
+                    pinyin=idiom["pinyin"],
+                    homophone=idiom_homophone,
+                    human_cn=human_cn,
+                    key_word_cn=key_word_cn
+                )
+                matching_idioms.append(match)
         return matching_idioms
 
-    def match(self, humans_cn, key_words_cn, strict=True):
+    def match(self, human_cn, key_word_cn, strict=True):
         """
         为每对人名和关键词中文短语匹配成语。
         """
-        matching_idioms = []
-        humans_cn = split_by_sep(humans_cn)
-        key_words_cn = split_by_sep(key_words_cn)
-        for human_cn, key_word_cn in itertools.product(humans_cn, key_words_cn):
-            matching_idioms.extend(self.match_idioms(human_cn, key_word_cn, strict))
+        matching_idioms = self.match_idioms(human_cn, key_word_cn, strict)
         return matching_idioms
