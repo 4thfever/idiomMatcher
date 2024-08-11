@@ -58,7 +58,16 @@ def get_prompt(human, key_word, idiom, idiom_xieyin):
     理解：
     """
 
-def get_output(human, key_word, idiom, idiom_xieyin, understanding):
+def get_output(ress):
+    ress = [_get_output(res) for res in ress]
+    output = "\n\n".join(ress)
+    return output
+
+def _get_output(res):
+    idiom, _, idiom_xieyin, _, _ = res
+    return f"原始成语：'{idiom}'\n谐音成语：'{idiom_xieyin}'"
+
+def get_explain(human, key_word, idiom, idiom_xieyin, understanding):
     return f"""
     原始成语：'{idiom}'
     谐音成语：'{idiom_xieyin}'

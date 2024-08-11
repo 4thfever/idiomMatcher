@@ -28,13 +28,20 @@ def demo():
                 lines=5,
                 elem_id="output"
             )
+            explain = gr.Textbox(
+                label="解释", 
+                lines=5,
+                elem_id="explain"
+            )
 
             def process(name, keyword, is_strict):
                 return search(name, keyword, is_strict)
 
-            submit_button = gr.Button("开始谐音！")
-            submit_button.click(process, inputs=[name_input, keyword_input, is_strict], outputs=output)
+            submit_button = gr.Button("寻找谐音！")
+            submit_button.click(process, inputs=[name_input, keyword_input, is_strict], outputs=[output, explain])
 
     return demo
 
-demo().launch()
+demo().launch(
+    debug=True,
+)
