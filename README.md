@@ -4,7 +4,7 @@
 
 ## 简介
 建立新华字典的成语集合的数据集。<br>
-特别感谢 [pwxcoo/chinese-xinhua](https://github.com/pwxcoo/chinese-xinhua) 的文件！<br>
+特别感谢 [pwxcoo/chinese-xinhua](https://github.com/pwxcoo/chinese-xinhua) 的成语集合文件！<br>
 基于用户输入的人名与关键字，自动搜索可能的谐音结果。<br>
 
 ## 使用
