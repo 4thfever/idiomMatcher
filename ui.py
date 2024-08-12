@@ -9,12 +9,12 @@ def demo():
 
         with gr.Column():
             name_input = gr.Textbox(
-                placeholder="输入人名,多个间用逗号分隔", 
+                placeholder="输入人名", 
                 label="人名",
                 elem_id="name_input"
             )
             keyword_input = gr.Textbox(
-                placeholder="输入关键字,多个间用逗号分隔", 
+                placeholder="输入关键字", 
                 label="关键字",
                 elem_id="keyword_input"
             )
