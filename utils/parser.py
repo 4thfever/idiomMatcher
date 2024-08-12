@@ -7,13 +7,13 @@ def get_understanding(res):
 
 def get_output(matches):
     matches = [_get_output(match) for match in matches]
-    output = "\n\n".join(matches)
+    output = "\n".join(matches)
     return output
 
 def _get_output(match):
     idiom = match.idiom
     homophone = match.homophone
-    return f"原始成语：{idiom}\n谐音成语：{homophone}"
+    return f"{idiom}   ==>   {homophone}"
 
 def get_explain(match, understanding):
     return f"""

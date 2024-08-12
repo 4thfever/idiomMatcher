@@ -23,17 +23,16 @@ def demo():
                 elem_id="is_strict", 
                 value=True
             )
-            output = gr.Textbox(
-                label="检测结果", 
-                lines=5,
-                elem_id="output"
-            )
             explain = gr.Textbox(
-                label="解释", 
+                label="谐音解释", 
                 lines=5,
                 elem_id="explain"
             )
-
+            output = gr.Textbox(
+                label="全部检测结果", 
+                lines=5,
+                elem_id="output"
+            )
             def process(name, keyword, is_strict):
                 return search(name, keyword, is_strict)
 
