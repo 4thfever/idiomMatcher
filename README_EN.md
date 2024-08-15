@@ -12,4 +12,4 @@ Name: The subject of the homophonic name.<br>
 Keyword: The subject of the homophonic keyword.<br>
 Strict Mode: Whether to strictly detect tone. If yes, only results with exactly the same tones will be returned. If no, results with the same pinyin will be returned.<br>
 
-![Interface](intro.png)
+![Interface](assets/intro.png)
