@@ -17,7 +17,7 @@ class Match:
     key_word_cn: str
 
 class IdiomMatcher:
-    def __init__(self, file_path='idiom.json'):
+    def __init__(self, file_path='assets/idiom.json'):
         self.idioms = self.load_idioms(file_path)
 
     def load_idioms(self, file_path):
