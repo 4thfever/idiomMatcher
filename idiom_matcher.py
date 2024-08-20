@@ -13,8 +13,8 @@ from utils.pinyin import (
 class Match:
     idiom: str
     homophone: str
-    human_cn: str
-    key_word_cn: str
+    name: str
+    keyword: str
 
 class IdiomMatcher:
     def __init__(self, file_path='assets/idiom.json'):
@@ -66,26 +66,26 @@ class IdiomMatcher:
                     return human_match_idx, key_word_match_idx
         return None, None
 
-    def gen_homophone(self, idiom, human_cn, key_word_cn, human_idx, keyword_idx):
+    def gen_homophone(self, idiom, name, keyword, human_idx, keyword_idx):
         """
         生成一个新的成语字符串，将字符替换为对应的人名和关键词字符。
         """
         homophone = deepcopy(idiom["word"])
-        homophone = replace_char_in_string(homophone, human_idx[1], human_cn[human_idx[0]])
-        homophone = replace_char_in_string(homophone, keyword_idx[1], key_word_cn[keyword_idx[0]])
+        homophone = replace_char_in_string(homophone, human_idx[1], name[human_idx[0]])
+        homophone = replace_char_in_string(homophone, keyword_idx[1], keyword[keyword_idx[0]])
         return homophone
 
-    def match(self, human_cn, key_word_cn, strict=True):
+    def match(self, name, keyword, strict=True):
         """
         根据提供的中文字符及其拼音表示匹配成语。
         """
         matching_idioms = []
         if strict:
-            human_pinyin = chinese_to_pinyin(human_cn, style="tone")
-            key_word_pinyin = chinese_to_pinyin(key_word_cn, style="tone")
+            human_pinyin = chinese_to_pinyin(name, style="tone")
+            key_word_pinyin = chinese_to_pinyin(keyword, style="tone")
         else:
-            human_pinyin = chinese_to_pinyin(human_cn)
-            key_word_pinyin = chinese_to_pinyin(key_word_cn)
+            human_pinyin = chinese_to_pinyin(name)
+            key_word_pinyin = chinese_to_pinyin(keyword)
 
         for idiom in self.idioms:
             idiom_pinyin = idiom["pinyin"]
@@ -95,13 +95,13 @@ class IdiomMatcher:
 
             if human_match and keyword_match:
                 homophone = self.gen_homophone(
-                    idiom, human_cn, key_word_cn, human_match, keyword_match
+                    idiom, name, keyword, human_match, keyword_match
                 )
                 match = Match(
                     idiom=idiom["word"],
                     homophone=homophone,
-                    human_cn=human_cn,
-                    key_word_cn=key_word_cn
+                    name=name,
+                    keyword=keyword
                 )
                 matching_idioms.append(match)
         return matching_idioms

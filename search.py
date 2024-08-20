@@ -14,9 +14,9 @@ idiom_matcher = IdiomMatcher()
 def insert_full_name_and_keyword(matches, name, full_name, keyword, full_keyword):
     for match in matches:
         if full_name and full_name != name:
-            match.human_cn = full_name
+            match.name = full_name
         if full_keyword and full_keyword != keyword:
-            match.key_word_cn = full_keyword
+            match.keyword = full_keyword
 
 @log_func_info  
 def get_homophone(name, keyword, is_strict):
@@ -40,8 +40,3 @@ def search(name, full_name, keyword, full_keyword, is_strict):
     match = random.choice(matches)
     explained_res = explain(match)
     return output, explained_res
-
-if __name__ == "__main__":
-    humans = "志峰"
-    key_words = "吃饭"
-    print(search(humans, key_words))

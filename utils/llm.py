@@ -33,8 +33,8 @@ def get_prompt(match):
     注意：
     1. 整个理解必须合乎逻辑且有意义。‘理解’中的主角必须为‘主人公’。
     2. 必须合理的结合原始成语的意义，以及原始成语的文本，不能忽略。
-    主人公：{match.human_cn}
-    关键字：{match.key_word_cn}
+    主人公：{match.name}
+    关键字：{match.keyword}
     原始成语：{match.idiom}
     谐音成语：{match.homophone}
     
