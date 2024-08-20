@@ -1,9 +1,6 @@
 import ast
 
-def get_understanding(res):
-    res = ast.literal_eval(res)
-    understanding = res["理解"]
-    return understanding
+
 
 def get_output(matches):
     matches = [_get_output(match) for match in matches]
@@ -15,7 +12,12 @@ def _get_output(match):
     homophone = match.homophone
     return f"{idiom}   ==>   {homophone}"
 
-def get_explain(match, understanding):
+def get_explain(res):
+    res = ast.literal_eval(res)
+    understanding = res["理解"]
+    return understanding
+
+def merge_explain(match, understanding):
     return f"""
     原始成语：{match.idiom}
     谐音成语：{match.homophone}
