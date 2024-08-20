@@ -11,15 +11,19 @@ except:
 
 idiom_matcher = IdiomMatcher()
 
-def search(humans, key_words, is_strict):
-    logger.info(f"humans: {humans}, key_words: {key_words}, is_strict: {is_strict}")
-    matches = idiom_matcher.match(humans, key_words, is_strict)
+def search(name, full_name, keyword, full_keyword, is_strict):
+    logger.info(f"name: {name}, keyword: {keyword}, is_strict: {is_strict}")
+    matches = idiom_matcher.match(name, keyword, is_strict)
     logger.info(f"matches: {matches}")
 
     if len(matches) ==  0:
         return "无匹配结果", "无匹配结果"
     output = get_output(matches)
     match = random.choice(matches)
+    if full_name:
+        match.human_cn = full_name
+    if full_keyword:
+        match.key_word_cn = full_keyword
     prompt = get_prompt(match)
     res = call_api(prompt)
     understanding = get_understanding(res)
