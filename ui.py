@@ -9,23 +9,23 @@ def demo():
 
         with gr.Column():
             name = gr.Textbox(
-                placeholder="人名的谐音部分", 
-                label="人名",
+                placeholder="人名，如'宫崎'", 
+                label="人名谐音部分",
                 elem_id="name"
             )
             full_name = gr.Textbox(
-                placeholder="人名全名（选填）", 
-                label="人名",
+                placeholder="全名，如'宫崎英高'", 
+                label="人名全名（选填）",
                 elem_id="full_name"
             )
             keyword = gr.Textbox(
-                placeholder="谐音关键字", 
+                placeholder="谐音关键字，如'神坛'", 
                 label="关键字",
                 elem_id="keyword"
             )
             full_keyword = gr.Textbox(
-                placeholder="关键字全名（选填）", 
-                label="关键字",
+                placeholder="整体关键字，如'跌落神坛'", 
+                label="整体关键字（选填）",
                 elem_id="full_keyword"
             )
             is_strict = gr.Checkbox(
@@ -52,7 +52,6 @@ def demo():
             # submit button只有在name和keyword都有输入时才会激活
             def update_button_state(name, keyword):
                 interactive = bool(name and keyword)
-                print(f"interactive: {interactive}")
                 return gr.update(interactive=interactive)
 
             # Button interactive logic
