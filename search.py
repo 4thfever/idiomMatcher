@@ -1,7 +1,5 @@
-import random
-
-from idiom_matcher import IdiomMatcher
-from utils.parser import get_output, get_explain, merge_explain
+from idiom_matcher import IdiomMatcher, Match
+from utils.parser import get_explain, merge_explain
 from utils.llm import get_prompt
 from utils.decorator import log_func_info
 try:
@@ -33,10 +31,10 @@ def explain(match):
 
 def search(name, full_name, keyword, full_keyword, is_strict):
     matches = get_homophone(name, keyword, is_strict)
-    if len(matches) == 0:
-        return "无匹配结果", "无匹配结果"
-    output = get_output(matches)
     insert_full_name_and_keyword(matches, name, full_name, keyword, full_keyword)
-    match = random.choice(matches)
-    explained_res = explain(match)
-    return output, explained_res
+    return matches
+
+def explain_homophone(idiom, homophone, name, keyword):
+    match = Match(idiom=idiom, homophone=homophone, name=name, keyword=keyword)
+    res = explain(match)
+    return res

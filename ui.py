@@ -1,6 +1,6 @@
 import gradio as gr
 
-from search import search
+from search import search, explain_homophone
 
 def demo():
     with gr.Blocks() as demo:
@@ -33,36 +33,40 @@ def demo():
                 elem_id="is_strict", 
                 value=True
             )
+            submit_button = gr.Button(
+                value="寻找谐音！",
+                interactive=False,
+            )
             explain = gr.Textbox(
                 label="谐音解释", 
                 lines=5,
                 elem_id="explain"
-            )
-            output = gr.Textbox(
-                label="全部检测结果", 
-                lines=5,
-                elem_id="output"
-            )
-
-            submit_button = gr.Button(
-                value="寻找谐音！",
-                interactive=False,
             )
 
             # submit button只有在name和keyword都有输入时才会激活
             def update_button_state(name, keyword):
                 interactive = bool(name and keyword)
                 return gr.update(interactive=interactive)
-
+            
             # Button interactive logic
             name.change(update_button_state, inputs=[name, keyword], outputs=submit_button)
             keyword.change(update_button_state, inputs=[name, keyword], outputs=submit_button)
 
-            def process(name, full_name, keyword, full_keyword, is_strict):
-                output, explain = search(name, full_name, keyword, full_keyword, is_strict)
-                return output, explain
-
-            submit_button.click(process, inputs=[name, full_name, keyword, full_keyword, is_strict], outputs=[output, explain])
+            @gr.render(inputs=[name, full_name, keyword, full_keyword, is_strict], triggers=[submit_button.click])
+            def show_split(name, full_name, keyword, full_keyword, is_strict):
+                matches = search(name, full_name, keyword, full_keyword, is_strict)
+                if len(matches) == 0:
+                    gr.Markdown("## 没有找到匹配的谐音成语")
+                with gr.Blocks():
+                    for match in matches:
+                        with gr.Row():
+                            tb_idiom = gr.Textbox(value=match.idiom, label="原始成语")
+                            tb_homophone = gr.Textbox(value=match.homophone, label="谐音成语")
+                            explain_btn = gr.Button("解释谐音！")
+                            name, keyword = match.name, match.keyword
+                            def give_explain(idiom, homophone):
+                                return explain_homophone(idiom, homophone, name, keyword)
+                            explain_btn.click(give_explain, inputs=[tb_idiom, tb_homophone], outputs=[explain])
 
     return demo
 
