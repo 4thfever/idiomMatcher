@@ -1,6 +1,6 @@
 import gradio as gr
 
-from search import search, explain_homophone
+from funcs import search, explain_homophone
 
 def demo():
     with gr.Blocks() as demo:
