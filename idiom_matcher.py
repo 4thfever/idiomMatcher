@@ -16,6 +16,9 @@ class Match:
     name: str
     keyword: str
 
+    def __repr__(self) -> str:
+        return (f"Match({self.idiom!r} => {self.homophone!r}, with {self.name!r} and {self.keyword!r})")
+
 class IdiomMatcher:
     def __init__(self, file_path='assets/idiom.json'):
         self.idioms = self.load_idioms(file_path)

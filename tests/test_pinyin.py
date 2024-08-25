@@ -1,4 +1,4 @@
-from utils import split_pinyin
+from utils.pinyin import split_pinyin
 from idiom_matcher import IdiomMatcher
 
 def test_split_pinyin():

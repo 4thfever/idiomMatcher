@@ -60,9 +60,20 @@ def demo():
                 with gr.Blocks():
                     for match in matches:
                         with gr.Row():
-                            tb_idiom = gr.Textbox(value=match.idiom, label="原始成语")
-                            tb_homophone = gr.Textbox(value=match.homophone, label="谐音成语")
-                            explain_btn = gr.Button("解释谐音！")
+                            tb_idiom = gr.Textbox(
+                                value=match.idiom, 
+                                label="原始成语",
+                                scale=4
+                            )
+                            tb_homophone = gr.Textbox(
+                                value=match.homophone, 
+                                label="谐音成语",
+                                scale=4
+                            )
+                            explain_btn = gr.Button(
+                                "解释谐音！",
+                                scale=1
+                            )
                             name, keyword = match.name, match.keyword
                             def give_explain(idiom, homophone):
                                 return explain_homophone(idiom, homophone, name, keyword)
