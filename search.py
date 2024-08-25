@@ -25,8 +25,8 @@ def get_homophone(name, keyword, is_strict):
 def explain(match):
     prompt = get_prompt(match)
     res = call_api(prompt)
-    explain = get_explain(res)
-    explained_res = merge_explain(match, explain)
+    explain, example = get_explain(res)
+    explained_res = merge_explain(match, explain, example)
     return explained_res
 
 def search(name, full_name, keyword, full_keyword, is_strict):

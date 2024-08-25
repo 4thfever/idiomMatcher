@@ -12,14 +12,16 @@ def _get_output(match):
 
 def get_explain(res):
     res = ast.literal_eval(res)
-    understanding = res["理解"]
-    return understanding
+    explain = res["理解"]
+    example = res["例句"]
+    return explain, example
 
-def merge_explain(match, understanding):
+def merge_explain(match, explain, example):
     return f"""
     原始成语：{match.idiom}
     谐音成语：{match.homophone}
     主人公：{match.name}
     关键字：{match.keyword}
-    理解：{understanding}
+    理解：{explain}
+    例句：{example}
     """
