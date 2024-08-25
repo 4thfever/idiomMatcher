@@ -29,7 +29,7 @@ def demo():
                 elem_id="full_keyword"
             )
             is_strict = gr.Checkbox(
-                label="严格模式（严格检测声调）", 
+                label="严格模式（声调必须严格相同）", 
                 elem_id="is_strict", 
                 value=True
             )
