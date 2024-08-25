@@ -22,14 +22,15 @@ def loop_example():
     from video.examples import EXAMPLES
 
     output_path = Path('video/example_output')
+    LIMIT = 25
     for example in tqdm(EXAMPLES):
         outputs = []
         file_name = output_path / f"{example.name} + {example.keyword}.txt"
         ress = search(example.name, example.full_name, example.keyword, example.full_keyword, True)
-        if len(ress) == 0:
-            ress = search(example.name, example.full_name, example.keyword, example.full_keyword, False)
-        if len(ress) > 100:
-            ress = ress[:100]
+        if len(ress) < LIMIT:
+            new_ress = search(example.name, example.full_name, example.keyword, example.full_keyword, False)
+            ress.extend(new_ress)
+        ress = ress[:LIMIT]
         for res in ress:
             outputs.append(explain(res))
         # save as json
