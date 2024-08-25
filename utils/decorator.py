@@ -19,3 +19,15 @@ def log_func_info(func):
         return result
     
     return wrapper
+
+def retry_when_error(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        for i in range(3):
+            try:
+                return func(*args, **kwargs)
+            except Exception as e:
+                print(f"Error: {e}")
+        return ""
+    
+    return wrapper  

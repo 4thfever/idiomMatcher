@@ -1,7 +1,7 @@
 from idiom_matcher import IdiomMatcher, Match
 from utils.parser import get_explain, merge_explain
 from utils.llm import get_prompt
-from utils.decorator import log_func_info
+from utils.decorator import log_func_info, retry_when_error
 try:
     from local_llm import call_api
 except:
@@ -22,6 +22,7 @@ def get_homophone(name, keyword, is_strict):
     return matches
 
 @log_func_info
+@retry_when_error
 def explain(match):
     prompt = get_prompt(match)
     res = call_api(prompt)
