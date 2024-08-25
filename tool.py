@@ -28,7 +28,9 @@ def loop_example():
         file_name = output_path / f"{example.name} + {example.keyword}.txt"
         ress = search(example.name, example.full_name, example.keyword, example.full_keyword, True)
         if len(ress) < LIMIT:
+            idioms = [res.idiom for res in ress]
             new_ress = search(example.name, example.full_name, example.keyword, example.full_keyword, False)
+            new_ress = [res for res in new_ress if res.idiom not in idioms]
             ress.extend(new_ress)
         ress = ress[:LIMIT]
         for res in ress:
