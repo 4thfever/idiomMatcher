@@ -28,6 +28,6 @@ def retry_when_error(func):
                 return func(*args, **kwargs)
             except Exception as e:
                 print(f"Error: {e}")
-        return ""
+        return "Error after 3 retries"
     
     return wrapper  

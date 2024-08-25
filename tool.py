@@ -1,7 +1,6 @@
 import json 
 
 from funcs import search, explain
-from utils.decorator import retry_when_error
 
 def format_json(file):
     with open(file, 'r', encoding='utf-8') as f:

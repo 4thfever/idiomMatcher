@@ -53,7 +53,7 @@ def get_prompt(match):
         "原始成语": "{match.idiom}",
         "谐音成语": "{match.homophone}",
         "分析": "",
-        "理解": "", // 主人公是{match.name}
+        "理解": "", // 主人公必须是{match.name}
         "场景": "",
         "例句": "" // 必须包含{match.homophone}
     }}
